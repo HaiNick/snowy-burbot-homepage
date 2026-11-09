@@ -15,7 +15,7 @@ Diese Website setzt keine Cookies, nutzt kein Tracking und keine Analysewerkzeug
 
 Diese Website ist ein privates Angebot ohne kommerziellen Zweck. Verantwortlich für die Verarbeitung personenbezogener Daten ist:
 
-[[VORNAME NACHNAME]]
+Nicklas Jähnert
 E-Mail: nicklas@snowy-burbot.com
 
 ## Hosting
