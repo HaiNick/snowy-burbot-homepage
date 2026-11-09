@@ -100,4 +100,16 @@ const writeups = defineCollection({
   }),
 });
 
-export const collections = { site, hosts, projects, changelog, now, writeups };
+// Impressum and Datenschutz. A page is built only when draft is false, and the
+// build fails if a published page still contains a [[PLACEHOLDER]].
+const legal = defineCollection({
+  loader: glob({ pattern: "*.md", base: "src/content/legal" }),
+  schema: z.object({
+    title: z.string(),
+    linkText: z.string(),
+    updated: z.string(), // YYYY-MM-DD, quoted
+    draft: z.boolean().default(true),
+  }),
+});
+
+export const collections = { site, hosts, projects, changelog, now, writeups, legal };

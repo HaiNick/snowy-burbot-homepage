@@ -1,0 +1,25 @@
+---
+import { render } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Window from "../components/Window.astro";
+import { getLegal } from "../lib/content";
+
+export async function getStaticPaths() {
+  const pages = await getLegal();
+  return pages.map((page) => ({ params: { legal: page.id }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+---
+<Base title={page.data.title} description={page.data.title} activeTitle={`~/${page.id}.md`}>
+  <main class="desk single" id="desk">
+    <Window id="w-legal" app="nvim" title={`~/${page.id}.md`} active maximizable={false} heading="h1">
+      <article class="prose" lang="de">
+        <Content />
+        <p class="meta">Stand: {page.data.updated}</p>
+      </article>
+      <p class="links-row back"><a href="/">cd ~</a></p>
+    </Window>
+  </main>
+</Base>

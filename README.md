@@ -93,6 +93,10 @@ npx playwright install chromium
 
 **Note:** Colors come from `.mermaid-fig` in `src/styles/global.css`. Mermaid `style` and `classDef` lines have no effect, and other diagram types need their own rules there. The Docker build installs the Chromium that matches the `playwright` version in `package.json`, so updating the package is enough.
 
+## Legal pages
+
+`src/content/legal/impressum.md` and `datenschutz.md` become `/impressum` and `/datenschutz`. A page is built, linked in the contact window, and added to the sitemap only when its `draft` is `false`. If a published page still contains a `[[PLACEHOLDER]]`, the build fails with the file name and the placeholders left, so placeholder text can't go live.
+
 ## Before going live
 
 - In `site.yaml`, set `draftNote: ""`.

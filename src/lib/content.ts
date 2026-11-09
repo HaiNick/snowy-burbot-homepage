@@ -36,3 +36,15 @@ export async function getWriteups() {
 }
 
 export const isoDate = (d: Date) => d.toISOString().slice(0, 10);
+
+// Published legal pages only. Fails the build if one still has a placeholder.
+export async function getLegal() {
+  const all = await getCollection("legal", ({ data }) => !data.draft);
+  for (const page of all) {
+    const left = page.body?.match(/\[\[[^\]]+\]\]/g);
+    if (left) {
+      throw new Error(`src/content/legal/${page.id}.md is published but still has placeholders: ${[...new Set(left)].join(", ")}`);
+    }
+  }
+  return all.sort((a, b) => a.id.localeCompare(b.id));
+}
