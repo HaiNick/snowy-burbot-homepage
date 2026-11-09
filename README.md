@@ -100,16 +100,38 @@ npx playwright install chromium
 - Add Impressum and Datenschutz pages and set their paths under `legal`.
 - Make sure `security@snowy-burbot.com` reaches a mailbox you read (Cloudflare Email Routing).
 
-## Build and run with Docker
+## Docker image
+
+GitHub Actions builds the image on every push to `main` and publishes it to GitHub Container Registry (`.github/workflows/docker.yml`):
+
+| Event | Tags |
+|---|---|
+| Push to `main` | `latest`, `sha-<short commit>` |
+| Tag `v1.2.3` | `1.2.3`, `1.2` |
+| Pull request | Build only, nothing is pushed |
+
+Pull and run the published image:
 
 ```bash
-docker build -t snowy-burbot-homepage .
-docker run --rm -p 8080:8080 snowy-burbot-homepage
+docker pull ghcr.io/hainick/snowy-burbot-homepage:latest
+docker run --rm -p 8080:8080 --read-only --tmpfs /tmp --cap-drop ALL ghcr.io/hainick/snowy-burbot-homepage:latest
 ```
 
 Open `http://localhost:8080`. The container listens on port 8080 as a non-root user and answers `GET /healthz` with `ok`.
 
-On the VPS, use `compose.example.yml` as a starting point. It joins Seki's Docker network without publishing a port, so Caddy reaches it as `homepage:8080`. Check the network name with `docker network ls` first.
+To build locally instead:
+
+```bash
+docker build -t snowy-burbot-homepage .
+```
+
+On the VPS, use `compose.example.yml` as a starting point. It pulls the published image and joins Seki's Docker network without publishing a port, so Caddy reaches it as `homepage:8080`. Check the network name with `docker network ls` first. To deploy a new version:
+
+```bash
+docker compose pull && docker compose up -d
+```
+
+To roll back, set `image:` to an older `sha-...` tag and run `docker compose up -d`.
 
 ## Security headers
 

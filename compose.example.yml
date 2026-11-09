@@ -2,8 +2,8 @@
 # it as homepage:8080. No ports are published on the host.
 services:
   homepage:
-    build: .
-    image: snowy-burbot-homepage:latest
+    # Published by .github/workflows/docker.yml. Pin a sha-... tag to roll back.
+    image: ghcr.io/hainick/snowy-burbot-homepage:latest
     container_name: homepage
     restart: unless-stopped
     read_only: true
