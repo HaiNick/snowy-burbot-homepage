@@ -1,0 +1,17 @@
+---
+import Window from "../Window.astro";
+import { getChangelog } from "../../lib/content";
+
+const entries = await getChangelog();
+---
+<Window id="w-log" app="kitty" title="~/lab git log --oneline">
+  <ul class="gitlog">
+    {entries.map((e, i) => (
+      <li>
+        <span class="dot" aria-hidden="true">*</span>
+        <span class="h">{e.data.when}</span>
+        <span>{i === 0 && <span class="head">(HEAD) </span>}{e.data.text}</span>
+      </li>
+    ))}
+  </ul>
+</Window>

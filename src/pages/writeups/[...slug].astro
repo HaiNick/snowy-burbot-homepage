@@ -1,0 +1,31 @@
+---
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Window from "../../components/Window.astro";
+import { getWriteups, isoDate } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const posts = await getWriteups();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const date = isoDate(post.data.date);
+---
+<Base title={post.data.title} description={post.data.summary} activeTitle={`~/writeups/${post.id}.md`}>
+  <main class="desk single" id="desk">
+    <Window id="w-post" app="nvim" title={`~/writeups/${post.id}.md`} active maximizable={false}>
+      <article class="prose">
+        <h1 class="post-title">{post.data.title}</h1>
+        <p class="meta">
+          <time datetime={date}>{date}</time>
+          {post.data.tags.map((t) => <span> #{t}</span>)}
+          {post.data.draft && <span> (draft, hidden in production)</span>}
+        </p>
+        <Content />
+      </article>
+      <p class="links-row back"><a href="/writeups">cd ..</a><a href="/">cd ~</a></p>
+    </Window>
+  </main>
+</Base>

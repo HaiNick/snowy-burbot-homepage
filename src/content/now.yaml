@@ -1,0 +1,11 @@
+# What I'm working on right now. Newest first, keep it to 3 to 5 lines.
+# Replace with: npm run now -- "text"   (or add with --add)
+- id: homepage
+  since: "2026-11-09"
+  text: Building this site and the fail2ban setup in front of it.
+- id: forgejo
+  since: "2026-11-05"
+  text: Moving my compose files into one git repo. Forgejo for CI, Zot as my own registry.
+- id: nas
+  since: "2026-10"
+  text: Planning a small NAS so the Pi can go back to only running the school stack. Not bought yet.

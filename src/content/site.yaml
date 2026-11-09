@@ -1,0 +1,100 @@
+# Site-wide text. Edit freely; the build validates it.
+site:
+  name: Nicklas
+  handle: sharky
+  title: snowy-burbot.com
+  description: Nicklas (sharky), IT apprentice in Germany. Homelab, Blue Team/SOC, IAM, and PKI.
+  role: IT systems integration apprentice (FISI)
+  focus: Blue Team/SOC, IAM, PKI
+  location: Germany
+  # The bar clock shows the visitor's time and country. These two are the
+  # fallback when the browser doesn't reveal a time zone.
+  timezone: Europe/Berlin
+  country: DE
+
+  # Shown under the tailscale window. Plain text, keep it short.
+  intro: >-
+    I'm Nicklas, sharky online. I'm doing an IT apprenticeship in Germany and
+    want to end up in a SOC or working on IAM and PKI. At home I run a small
+    lab so I can see how things break.
+
+    Two things that broke and taught me the most: in July an identity provider
+    update broke every connector at once, and in August I replaced 11
+    certificates with one wildcard, then hit an IPv6 problem with the API token.
+
+    I'm also moving my laptop off Omarchy to my own Hyprland setup. Still
+    looking around, nothing done yet.
+
+  # The fastfetch block in the first window. A "tailnet" row is added from hosts.yaml.
+  fastfetch:
+    # Plain ASCII, keep lines under ~18 characters. The 2 in |2- is needed
+    # because the first line is indented more than the second.
+    logo: |2-
+              #
+             ##
+           #####
+          #######
+        #########
+       ###########
+    wave: "~~~~~~~~~~~~~"
+    rows:
+      - { key: os, value: Arch Linux }
+      - { key: host, value: g14 }
+      - { key: wm, value: Hyprland }
+      - { key: terminal, value: kitty }
+      - { key: theme, value: Tokyo Night }
+      - { key: font, value: Google Sans Code }
+
+  email: nicklas@snowy-burbot.com
+  github: https://github.com/HaiNick
+
+  # Path under public/, for example /cv.pdf. Leave empty to hide the link.
+  # Keep it empty until the file exists, or fail2ban counts the 404s.
+  cv: ""
+
+  # Orange note in the first window. Set to "" before going live.
+  draftNote: ""
+
+  contact: >-
+    Questions about work, a writeup, or the lab: email me. Security issues on
+    this site: see security.txt.
+
+  lab:
+    intro: >-
+      A small Hetzner server and a Raspberry Pi 5 at home, joined over
+      Tailscale. Caddy on the server is the only thing that faces the internet.
+      The Pi isn't reachable from outside. A NAS is planned, not finished yet.
+    # Plain ASCII, shown in a monospace block. Plain ASCII lines up in every
+    # font; box-drawing and arrow glyphs often fall back to another font.
+    # Keep lines under ~50 characters.
+    diagram: |-
+      visitors -----> cloudflare
+                          |
+      claude -------> caddy (cloud-vps)
+      allowlist + oidc    |
+                          |
+                 +--------+---------+
+                 |                  |
+            mcp servers        tailscale
+            this site              |
+                                pi-5
+                          pocket-id, poznote
+                          jellyfin, school stack
+                          postfix relay
+    # Read out by screen readers instead of the diagram.
+    diagramLabel: >-
+      Visitors reach the site through Cloudflare. Claude connectors reach
+      Caddy directly from an allowlisted range with OIDC. Caddy runs the MCP
+      servers and this site on the cloud server, and forwards over Tailscale
+      to the Raspberry Pi.
+
+  security:
+    contact: mailto:nicklas@snowy-burbot.com
+    # RFC 9116: keep under one year ahead, bump yearly.
+    expires: "2027-09-01T00:00:00.000Z"
+    languages: en, de
+
+  legal:
+    # Paths or URLs. Leave empty to hide the link.
+    impressum: ""
+    datenschutz: ""

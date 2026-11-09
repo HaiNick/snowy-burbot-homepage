@@ -1,0 +1,26 @@
+# Machines on the tailnet. Real hostnames and addresses stay off the page.
+# inLab: false keeps a device in the tailscale window but out of the lab window.
+- id: cloud-vps
+  order: 1
+  name: cloud-vps
+  os: linux
+  role: edge, mcp servers, this site
+  box: Hetzner CPX22, Ubuntu
+  job: Stays up when my home internet doesn't
+  runs: [Caddy, MCP servers, this site]
+
+- id: pi-5
+  order: 2
+  name: pi-5
+  os: linux
+  role: home services
+  box: 16 GB, Docker Compose
+  job: Home services, Tailscale only
+  runs: [Jellyfin, Poznote, Pocket ID, Node-RED, InfluxDB, Grafana, MQTT]
+
+- id: g14
+  order: 3
+  name: g14
+  os: linux
+  role: daily driver, Arch + Hyprland
+  inLab: false

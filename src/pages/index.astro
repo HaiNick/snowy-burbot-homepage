@@ -1,0 +1,21 @@
+---
+import Base from "../layouts/Base.astro";
+import About from "../components/windows/About.astro";
+import Projects from "../components/windows/Projects.astro";
+import Lab from "../components/windows/Lab.astro";
+import Writeups from "../components/windows/Writeups.astro";
+import Now from "../components/windows/Now.astro";
+import Log from "../components/windows/Log.astro";
+import Contact from "../components/windows/Contact.astro";
+---
+<Base home activeTitle="~ fastfetch; tailscale status">
+  <main class="desk home" id="desk">
+    <About />
+    <Projects />
+    <Lab />
+    <Now />
+    <Writeups />
+    <Log />
+    <Contact />
+  </main>
+</Base>

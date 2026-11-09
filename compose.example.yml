@@ -1,0 +1,22 @@
+# Example service for the VPS. Join Seki's Docker network so Caddy can reach
+# it as homepage:8080. No ports are published on the host.
+services:
+  homepage:
+    build: .
+    image: snowy-burbot-homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - seki
+
+networks:
+  seki:
+    external: true
+    # Replace with the real name from: docker network ls
+    name: shark-no-seki_default

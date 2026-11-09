@@ -1,0 +1,71 @@
+# group: main shows as a directory, small as a file under ~/projects/small.
+# No source links for the MCP servers, Akashi, or Kanshi-To.
+- id: shark-no-mcp
+  order: 1
+  group: main
+  name: shark-no-mcp
+  summary: >-
+    A set of small servers that give Claude tools: fetching pages, looking up
+    IPs and hashes on VirusTotal and abuse.ch, checking CVEs against NVD and
+    CISA KEV, reading and writing my notes, and sending mail.
+  note: >-
+    Every server asks for an OIDC login through Pocket ID.
+
+- id: shark-no-akashi
+  order: 2
+  group: main
+  name: shark-no-akashi
+  summary: >-
+    A certificate manager and reverse proxy I'm building to replace my Caddy
+    setup. Planned: Let's Encrypt for public names, a bundled step-ca for
+    internal ones, and DNS synced from Cloudflare.
+  note: Early stage, not running yet.
+
+- id: shark-no-kanshi-to
+  order: 3
+  group: main
+  name: shark-no-kanshi-to
+  summary: >-
+    A one-page status view for services behind Caddy and Tailscale. Planned,
+    not running yet.
+  note: Early stage.
+
+- id: aniworld-pr-193
+  order: 10
+  group: small
+  name: aniworld-pr-193
+  summary: >-
+    Fix for AniWorld-Downloader, merged. Behind HTTPS the browser blocked
+    cover images as mixed content, so I added a server-side image proxy.
+  link: https://github.com/phoenixthrush/AniWorld-Downloader/pull/193
+  linkText: "PR #193"
+
+- id: twitch-autoclaim
+  order: 11
+  group: small
+  name: twitch-autoclaim
+  summary: Chrome extension that claims channel points for me. On the Chrome Web Store.
+
+- id: openc6-bios-esp32
+  order: 12
+  group: small
+  name: openc6-bios-esp32
+  summary: Port on my fork. Not tested on real hardware yet.
+
+- id: ygo-duel-bot
+  order: 13
+  group: small
+  name: ygo-duel-bot
+  summary: >-
+    A neural-network bot for Yu-Gi-Oh! Master Duel. I'm starting with an
+    offline version.
+  note: In progress.
+
+- id: valheim-bridge
+  order: 14
+  group: small
+  name: valheimbridge
+  summary: >-
+    A BepInEx mod for Valheim that lets Python scripts control my character,
+    with an in-game overlay.
+  note: Runs on Windows. Still in development.

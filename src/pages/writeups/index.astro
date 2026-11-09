@@ -1,0 +1,28 @@
+---
+import Base from "../../layouts/Base.astro";
+import Window from "../../components/Window.astro";
+import { getWriteups, isoDate } from "../../lib/content";
+
+const posts = await getWriteups();
+---
+<Base title="Writeups" activeTitle="~/writeups">
+  <main class="desk single" id="desk">
+    <Window id="w-list" app="nvim" title="~/writeups" active maximizable={false} heading="h1">
+      {posts.length === 0 ? (
+        <p class="empty">-- empty directory --</p>
+      ) : (
+        <ul class="posts">
+          {posts.map((p) => (
+            <li>
+              <time datetime={isoDate(p.data.date)}>{isoDate(p.data.date)}{p.data.draft && " (draft)"}</time>
+              <a href={`/writeups/${p.id}`}>{p.data.title}</a>
+              {p.data.tags.map((t) => <span class="tag">#{t}</span>)}
+              <span class="sum">{p.data.summary}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      <p class="links-row"><a href="/">cd ~</a><a href="/rss.xml">rss</a></p>
+    </Window>
+  </main>
+</Base>

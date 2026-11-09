@@ -1,0 +1,55 @@
+---
+import Window from "../Window.astro";
+import { getSite, getHosts } from "../../lib/content";
+
+const site = await getSite();
+const hosts = await getHosts();
+const login = `${site.handle}@snowy-burbot`;
+const rows = [...site.fastfetch.rows, { key: "tailnet", value: `${hosts.length} hosts` }];
+---
+<Window id="w-about" app="kitty" title="~ fastfetch; tailscale status" active heading="h1">
+  <p class="prompt"><span class="u">{login}</span> ~ <span class="c">fastfetch</span></p>
+  <div class="ff">
+    <pre class="ff-logo" aria-hidden="true">{site.fastfetch.logo}{"\n"}<span class="ff-wave">{site.fastfetch.wave}</span></pre>
+    <div class="ff-info">
+      <p class="ff-login">{login}</p>
+      <p class="ff-rule" aria-hidden="true">{"-".repeat(login.length)}</p>
+      <dl>
+        {rows.map((r) => (
+          <>
+            <dt>{r.key}</dt>
+            <dd>{r.value}</dd>
+          </>
+        ))}
+      </dl>
+      <div class="ff-colors" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+  <p class="prompt"><span class="u">{site.handle}@snowy-burbot</span> ~ <span class="c">tailscale status</span></p>
+  <div class="ts">
+    <table>
+      <caption class="sr-only">Machines on my tailnet</caption>
+      <thead><tr><th scope="col">ip</th><th scope="col">host</th><th scope="col">os</th><th scope="col">role</th></tr></thead>
+      <tbody>
+        {hosts.map((h) => (
+          <tr>
+            <td class="ip">100.x.x.x</td>
+            <td class="host">{h.data.name}</td>
+            <td>{h.data.os}</td>
+            <td class="role">{h.data.role}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  {site.intro.split("\n").map((para) => <p class="intro">{para}</p>)}
+  <p class="note">{site.role}. {site.focus}. {site.location}.</p>
+  <p class="links-row">
+    {site.cv && <a href={site.cv}>cv.pdf</a>}
+    <a href={site.github}>github</a>
+    <a href="#w-contact">email</a>
+  </p>
+  {site.draftNote && <p class="draft"># {site.draftNote}</p>}
+</Window>

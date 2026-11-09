@@ -1,0 +1,25 @@
+---
+interface Props {
+  id: string;
+  app: string;
+  title: string;
+  active?: boolean;
+  maximizable?: boolean;
+  heading?: "h1" | "h2";
+}
+
+const { id, app, title, active = false, maximizable = true, heading = "h2" } = Astro.props;
+const Heading = heading;
+const titleId = `t-${id}`;
+---
+<section class:list={["win", { active }]} id={id} aria-labelledby={titleId}>
+  <div class="title">
+    <Heading id={titleId}><span class="app">{app}</span>{title}</Heading>
+    {maximizable && (
+      <button class="max-btn" type="button" aria-label={`Fullscreen ${title}`} aria-pressed="false">[ ]</button>
+    )}
+  </div>
+  <div class="body">
+    <slot />
+  </div>
+</section>

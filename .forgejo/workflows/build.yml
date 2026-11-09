@@ -1,0 +1,13 @@
+# Validates content and builds the site on every push.
+# Forgejo Actions uses the GitHub Actions syntax, so this also works in .github/workflows/.
+name: build
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: docker
+    # Has Chromium for Mermaid. Keep the tag equal to playwright in package.json.
+    container: mcr.microsoft.com/playwright:v1.65.0-noble
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build

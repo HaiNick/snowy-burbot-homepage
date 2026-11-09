@@ -1,0 +1,35 @@
+---
+import Window from "../Window.astro";
+import { getProjects } from "../../lib/content";
+
+const projects = await getProjects();
+const main = projects.filter((p) => p.data.group === "main");
+const small = projects.filter((p) => p.data.group === "small");
+---
+<Window id="w-projects" app="yazi" title="~/projects">
+  <ul class="ls">
+    {main.map((p) => (
+      <li>
+        <h3><span class="perm" aria-hidden="true">drwxr-x</span>{p.data.name}/</h3>
+        <p>{p.data.summary}</p>
+        {p.data.note && <p class="note">{p.data.note}</p>}
+        {p.data.link && <p class="note"><a href={p.data.link}>{p.data.linkText ?? p.data.link}</a></p>}
+      </li>
+    ))}
+  </ul>
+  {small.length > 0 && (
+    <>
+      <p class="sub">~/projects/small</p>
+      <ul class="ls">
+        {small.map((p) => (
+          <li>
+            <h3><span class="perm" aria-hidden="true">-rw-r--</span>{p.data.name}</h3>
+            <p>{p.data.summary}</p>
+            {p.data.note && <p class="note">{p.data.note}</p>}
+            {p.data.link && <p class="note"><a href={p.data.link}>{p.data.linkText ?? p.data.link}</a></p>}
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+</Window>

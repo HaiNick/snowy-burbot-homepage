@@ -1,0 +1,44 @@
+---
+import "@fontsource-variable/google-sans";
+import "@fontsource-variable/google-sans-code";
+import "../styles/global.css";
+import Bar from "../components/Bar.astro";
+import { getSite } from "../lib/content";
+
+interface Props {
+  title?: string;
+  description?: string;
+  activeTitle?: string;
+  home?: boolean;
+}
+
+const site = await getSite();
+const { title, description = site.description, activeTitle = "", home = false } = Astro.props;
+const pageTitle = title ? `${title} | ${site.title}` : `${site.name} | ${site.title}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${site.title} writeups`} href="/rss.xml" />
+    <meta name="color-scheme" content="dark light" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <script is:inline src="/theme-init.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#desk">Skip to content</a>
+    <Bar home={home} activeTitle={activeTitle} github={site.github} timezone={site.timezone} location={site.location} country={site.country} />
+    <slot />
+    <script src="../scripts/desktop.ts"></script>
+    <script src="../scripts/eggs.ts"></script>
+  </body>
+</html>

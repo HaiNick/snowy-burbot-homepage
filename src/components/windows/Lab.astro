@@ -1,0 +1,25 @@
+---
+import Window from "../Window.astro";
+import { getSite, getHosts } from "../../lib/content";
+
+const site = await getSite();
+const hosts = (await getHosts()).filter((h) => h.data.inLab);
+---
+<Window id="w-lab" app="nvim" title="~/lab/README.md">
+  <p>{site.lab.intro}</p>
+  <div class="diagram" role="img" aria-label={site.lab.diagramLabel}>
+    <pre aria-hidden="true">{site.lab.diagram}</pre>
+  </div>
+  <div class="hosts">
+    {hosts.map((h) => (
+      <div>
+        <h3>## {h.data.name}</h3>
+        <dl>
+          {h.data.box && <><dt>box</dt><dd>{h.data.box}</dd></>}
+          {h.data.job && <><dt>job</dt><dd>{h.data.job}</dd></>}
+          {h.data.runs.length > 0 && <><dt>runs</dt><dd>{h.data.runs.join(", ")}</dd></>}
+        </dl>
+      </div>
+    ))}
+  </div>
+</Window>

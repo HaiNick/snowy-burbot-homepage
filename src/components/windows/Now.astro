@@ -1,0 +1,20 @@
+---
+import Window from "../Window.astro";
+import { getNow } from "../../lib/content";
+
+const items = await getNow();
+---
+<Window id="w-now" app="nvim" title="~/now.md">
+  {items.length === 0 ? (
+    <p class="empty">Nothing in progress.</p>
+  ) : (
+    <ul class="now-list">
+      {items.map((n) => (
+        <li>
+          <span class="box" aria-hidden="true">[ ]</span>
+          <span>{n.data.text}<time datetime={n.data.since}>since {n.data.since}</time></span>
+        </li>
+      ))}
+    </ul>
+  )}
+</Window>

@@ -1,0 +1,24 @@
+---
+import Window from "../Window.astro";
+import { getWriteups, isoDate } from "../../lib/content";
+
+interface Props { limit?: number }
+const { limit = 5 } = Astro.props;
+const all = await getWriteups();
+const posts = all.slice(0, limit);
+---
+<Window id="w-writeups" app="nvim" title="~/writeups">
+  {posts.length === 0 ? (
+    <p class="empty">-- empty directory --<br />The first writeup lands here once it's published.</p>
+  ) : (
+    <ul class="posts">
+      {posts.map((p) => (
+        <li>
+          <time datetime={isoDate(p.data.date)}>{isoDate(p.data.date)}{p.data.draft && " (draft)"}</time>
+          <a href={`/writeups/${p.id}`}>{p.data.title}</a>
+        </li>
+      ))}
+    </ul>
+  )}
+  {all.length > limit && <p class="note"><a href="/writeups">All writeups ({all.length})</a></p>}
+</Window>

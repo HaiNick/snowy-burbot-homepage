@@ -1,0 +1,17 @@
+# Newest first. "when" is YYYY-MM, or "next" for plans.
+# Add entries with: npm run log -- 2026-12 "What changed"
+- id: next
+  when: next
+  text: Forgejo and Zot for my own CI and registry.
+- id: 2026-11-site
+  when: 2026-11
+  text: "Build this site: static Astro behind Cloudflare, escalating bans for scanners."
+- id: 2026-08-certs
+  when: 2026-08
+  text: Replace 11 certificates with one wildcard. First real backup of the Pi after an audit found its data on the SD card.
+- id: 2026-07-idp
+  when: 2026-07
+  text: Identity provider update breaks every connector at once. Fix it, write it up.
+- id: 2026-06-oidc
+  when: 2026-06
+  text: Move notes and MCP servers behind OIDC login.

@@ -1,0 +1,4 @@
+#       ><(((°>
+# You read robots.txt for fun. Press : on the homepage.
+User-agent: *
+Allow: /

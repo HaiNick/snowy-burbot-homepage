@@ -1,0 +1,38 @@
+---
+import { workspaces } from "../lib/workspaces";
+
+interface Props {
+  home: boolean;
+  activeTitle: string;
+  github: string;
+  timezone: string;
+  location: string;
+  country: string;
+}
+
+const { home, activeTitle, github, timezone, location, country } = Astro.props;
+---
+<header class="bar">
+  <div class="bar-in">
+    <nav class="ws" aria-label="Windows">
+      {workspaces.map((w, i) => (
+        <a
+          href={home ? `#${w.id}` : `/#${w.id}`}
+          data-go={w.id}
+          aria-current={home && i === 0 ? "true" : "false"}
+        >
+          {i + 1}<span class="lbl">{w.label}</span>
+        </a>
+      ))}
+    </nav>
+    <span class="mid hide-sm" id="active-title">{activeTitle}</span>
+    <div class="right">
+      <a class="hide-sm" href={github}>github</a>
+      <a class="hide-sm" href="/rss.xml">rss</a>
+      <button type="button" id="theme-btn" aria-label="Switch color theme">theme</button>
+      <span class="clock" title={`Local time in ${location}`}>
+        <span class="hide-sm"><span id="clock-where">{country}</span> </span><span id="clock" data-tz={timezone}>--:--</span>
+      </span>
+    </div>
+  </div>
+</header>
