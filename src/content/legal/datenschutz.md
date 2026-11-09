@@ -2,10 +2,12 @@
 title: Datenschutzerklärung
 linkText: datenschutz
 updated: "2026-11-09"
-# Set to false only after every [[PLACEHOLDER]] below is filled in and the
-# retention times match the server configuration.
-draft: true
+# The retention times below must match the server configuration
+# (Caddy roll_keep_for, fail2ban bantime.maxtime and dbpurgeage).
+draft: false
 ---
+
+# Datenschutzerklärung
 
 ## Kurzfassung
 
@@ -15,12 +17,12 @@ Diese Website setzt keine Cookies, nutzt kein Tracking und keine Analysewerkzeug
 
 Diese Website ist ein privates Angebot ohne kommerziellen Zweck. Verantwortlich für die Verarbeitung personenbezogener Daten ist:
 
-Nicklas Jähnert
+Nicklas Jähnert\
 E-Mail: nicklas@snowy-burbot.com
 
 ## Hosting
 
-Die Website läuft auf einem virtuellen Server der Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, in einem Rechenzentrum in [[HETZNER STANDORT, z. B. Nürnberg]]. Mit Hetzner besteht ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO.
+Die Website läuft auf einem virtuellen Server der Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, in einem Rechenzentrum in Nürnberg. Mit Hetzner besteht ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO.
 
 ## Cloudflare
 
@@ -51,7 +53,7 @@ Wenn Sie über den Schalter in der Leiste zwischen hellem und dunklem Design wec
 
 ## Kontakt per E-Mail
 
-Wenn Sie mir eine E-Mail schreiben, verarbeite ich Ihre Adresse und Ihre Nachricht, um zu antworten (Art. 6 Abs. 1 lit. f DSGVO). [[WEG DER E-MAIL, z. B.: E-Mails an diese Adresse werden über Cloudflare Email Routing an mein Postfach bei ANBIETER weitergeleitet.]] Ich lösche die Nachrichten, wenn sie nicht mehr gebraucht werden.
+Wenn Sie mir eine E-Mail schreiben, verarbeite ich Ihre Adresse und Ihre Nachricht, um zu antworten (Art. 6 Abs. 1 lit. f DSGVO). E-Mails an diese Adresse nimmt Cloudflare Email Routing entgegen und leitet sie an mein privates E-Mail-Postfach weiter. Ich lösche die Nachrichten, wenn sie nicht mehr gebraucht werden.
 
 ## Ihre Rechte
 
