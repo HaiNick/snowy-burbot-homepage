@@ -27,16 +27,16 @@ site:
 
   # The fastfetch block in the first window. A "tailnet" row is added from hosts.yaml.
   fastfetch:
-    # Plain ASCII, keep lines under ~18 characters. The 2 in |2- is needed
-    # because the first line is indented more than the second.
+    # Plain ASCII, keep lines under ~18 characters. Same shark fin as the
+    # favicon: curved front edge, hollow back edge, sitting on the wave.
+    # The 2 in |2- is needed because the first line is indented more than the last.
     logo: |2-
-              #
-             ##
-           #####
-          #######
-        #########
-       ###########
-    wave: "~~~~~~~~~~~~~"
+                ,|
+              ,' |
+            ,'   |
+          ,'     \
+        ,'        \
+    wave: "~~~~~~~~~~~~~~~"
     rows:
       - { key: os, value: Arch Linux }
       - { key: host, value: g14 }
