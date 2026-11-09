@@ -13,9 +13,9 @@ Diese Website setzt keine Cookies, nutzt kein Tracking und keine Analysewerkzeug
 
 ## Verantwortlicher
 
+Diese Website ist ein privates Angebot ohne kommerziellen Zweck. Verantwortlich für die Verarbeitung personenbezogener Daten ist:
+
 [[VORNAME NACHNAME]]
-[[STRASSE HAUSNUMMER]]
-[[PLZ ORT]]
 E-Mail: nicklas@snowy-burbot.com
 
 ## Hosting
