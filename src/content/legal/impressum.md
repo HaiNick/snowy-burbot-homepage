@@ -16,7 +16,7 @@ Deutschland
 
 ## Kontakt
 
-E-Mail: hello@snowy-burbot.com
+E-Mail: nicklas@snowy-burbot.com
 
 ## Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV
 

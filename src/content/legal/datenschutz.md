@@ -16,7 +16,7 @@ Diese Website setzt keine Cookies, nutzt kein Tracking und keine Analysewerkzeug
 [[VORNAME NACHNAME]]
 [[STRASSE HAUSNUMMER]]
 [[PLZ ORT]]
-E-Mail: hello@snowy-burbot.com
+E-Mail: nicklas@snowy-burbot.com
 
 ## Hosting
 
