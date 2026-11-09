@@ -19,5 +19,8 @@
     "playwright": "1.65.0",
     "rehype-mermaid": "3.0.0",
     "yaml": "2.9.1"
+  },
+  "overrides": {
+    "katex": "0.18.11"
   }
 }

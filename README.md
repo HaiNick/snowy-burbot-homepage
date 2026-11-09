@@ -6,7 +6,7 @@ The layout lives in `src/components/`. All text lives in `src/content/`, so you 
 
 ## Requirements
 
-- Node.js 22 or later
+- Node.js 22.23.4 or later (the Docker build uses Node 26 LTS)
 - Docker, for the production image
 
 ## Run locally
@@ -91,7 +91,7 @@ Rendering needs Chromium. Run this once on a new machine:
 npx playwright install chromium
 ```
 
-**Note:** Colors come from `.mermaid-fig` in `src/styles/global.css`. Mermaid `style` and `classDef` lines have no effect, and other diagram types need their own rules there. When you update `playwright` in `package.json`, change the image tag in `Dockerfile` and `.forgejo/workflows/build.yml` to match.
+**Note:** Colors come from `.mermaid-fig` in `src/styles/global.css`. Mermaid `style` and `classDef` lines have no effect, and other diagram types need their own rules there. The Docker build installs the Chromium that matches the `playwright` version in `package.json`, so updating the package is enough.
 
 ## Before going live
 
@@ -109,6 +109,7 @@ GitHub Actions builds the image on every push to `main` and publishes it to GitH
 | Push to `main` | `latest`, `sha-<short commit>` |
 | Tag `v1.2.3` | `1.2.3`, `1.2` |
 | Pull request | Build only, nothing is pushed |
+| Every Monday, 04:17 UTC | Rebuild of `latest` with fresh base images |
 
 Pull and run the published image:
 
