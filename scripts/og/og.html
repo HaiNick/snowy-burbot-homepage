@@ -1,0 +1,37 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: GS; src: url(../../node_modules/@fontsource-variable/google-sans/files/google-sans-latin-wght-normal.woff2); font-weight: 100 900; }
+@font-face { font-family: GSC; src: url(../../node_modules/@fontsource-variable/google-sans-code/files/google-sans-code-latin-wght-normal.woff2); font-weight: 100 900; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1200px; height: 630px; background: #16161e; font-family: GS; color: #c0caf5; }
+.bar { height: 44px; background: #1f2335; display: flex; align-items: center; justify-content: space-between; padding: 0 26px; font: 500 19px GSC; color: #7b83ad; }
+.ws { display: flex; gap: 10px; }
+.ws span { width: 28px; height: 28px; border-radius: 6px; display: grid; place-items: center; }
+.ws .on { background: #7aa2f7; color: #1a1b26; }
+.win { position: absolute; left: 22px; right: 22px; top: 62px; bottom: 22px; background: #1a1b26; border: 2px solid #7aa2f7; border-radius: 12px; overflow: hidden; }
+.tb { height: 46px; border-bottom: 1px solid #2f334d; display: flex; align-items: center; padding: 0 24px; font: 500 19px GSC; color: #7b83ad; gap: 12px; }
+.tb b { color: #7aa2f7; font-weight: 600; }
+.body { display: flex; align-items: center; gap: 64px; height: calc(100% - 46px); padding: 0 72px 10px; }
+svg { width: 300px; height: 300px; flex: none; }
+h1 { font-size: 92px; font-weight: 600; letter-spacing: -1.5px; line-height: 1; }
+.h { font: 500 32px GSC; margin-top: 16px; }
+.h .u { color: #9ece6a; } .h .d { color: #7aa2f7; }
+.r { font-size: 30px; color: #c0caf5; margin-top: 34px; }
+.f { font: 500 25px GSC; color: #bb9af7; margin-top: 12px; }
+.f i { font-style: normal; color: #2f334d; padding: 0 10px; }
+</style></head><body>
+<div class="bar"><div class="ws"><span class="on">1</span><span>2</span><span>3</span><span>4</span></div><div>snowy-burbot.com</div></div>
+<div class="win">
+  <div class="tb"><b>kitty</b> ~ fastfetch</div>
+  <div class="body">
+    <svg viewBox="0 0 32 32"><path d="M9.5 22.5 C12.3 16.5 14.6 11.3 20.5 7.5 C19.4 12.6 19.8 17.8 23.5 22.5" fill="none" stroke="#7aa2f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24.5 Q9.75 22 13.5 24.5 T21 24.5 T28.5 24.5" fill="none" stroke="#bb9af7" stroke-width="2" stroke-linecap="round"/></svg>
+    <div>
+      <h1>Nicklas</h1>
+      <p class="h"><span class="u">sharky</span>@<span class="d">snowy-burbot</span></p>
+      <p class="r">IT systems integration apprentice</p>
+      <p class="f">Blue Team/SOC<i>|</i>IAM<i>|</i>PKI<i>|</i>homelab</p>
+    </div>
+  </div>
+</div>
+</body></html>

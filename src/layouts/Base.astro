@@ -15,7 +15,10 @@ interface Props {
 const site = await getSite();
 const { title, description = site.description, activeTitle = "", home = false } = Astro.props;
 const pageTitle = title ? `${title} | ${site.title}` : `${site.name} | ${site.title}`;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+// format: "file" puts .html in the build-time path; canonical URLs use the
+// clean paths that nginx serves and the sitemap lists.
+const cleanPath = Astro.url.pathname.replace(/(?:\/index)?\.html$/, "") || "/";
+const canonical = new URL(cleanPath, Astro.site);
 ---
 <!doctype html>
 <html lang="en">
@@ -33,6 +36,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:image" content={new URL("/og.png", Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.name} (${site.handle}), ${site.title}`} />
+    <meta name="twitter:card" content="summary_large_image" />
     <script is:inline src="/theme-init.js"></script>
   </head>
   <body>
