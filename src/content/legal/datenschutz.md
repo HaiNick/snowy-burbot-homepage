@@ -1,7 +1,7 @@
 ---
 title: Datenschutzerklärung
 linkText: datenschutz
-updated: "2026-11-09"
+updated: "2026-11-10"
 # The retention times below must match the server configuration
 # (Caddy roll_keep_for, fail2ban bantime.maxtime and dbpurgeage).
 draft: false
@@ -46,6 +46,8 @@ Die Protokolle dienen dem Betrieb, der Fehlersuche und dem Erkennen von Angriffe
 Ein Programm (fail2ban) wertet die Protokolle automatisch aus. Ruft eine IP-Adresse typische Angriffsziele auf, zum Beispiel `/.env` oder `/wp-login.php`, oder erzeugt sie in kurzer Zeit sehr viele Fehler oder Anfragen, wird sie gesperrt. Die Sperre wird bei Cloudflare in einer Liste gesetzt und gilt nur für diese Website. Bei wiederholten Angriffen von derselben Adresse wird die Sperre länger: 1 Tag, dann 30 Tage, dann bis zu 1 Jahr.
 
 Gespeichert werden die IP-Adresse, der Zeitpunkt und der Grund der Sperre. Diese Einträge werden nach spätestens 13 Monaten gelöscht. Rechtsgrundlage ist mein berechtigtes Interesse am Schutz der Website vor Angriffen (Art. 6 Abs. 1 lit. f DSGVO). Wenn Sie glauben, zu Unrecht gesperrt worden zu sein, schreiben Sie mir eine E-Mail.
+
+Aus den Protokollen der letzten 24 Stunden erstellt ein Skript eine Statistik, die auf dieser Website angezeigt wird: Anzahl der Anfragen, Angriffsversuche und Sperren, die Art der Angriffe, die aufgerufenen Pfade und die Länder, aus denen die Angriffe kamen. Die Statistik enthält nur Summen. IP-Adressen oder andere Angaben, die eine Person identifizieren, werden nicht angezeigt.
 
 ## Speicherung im Browser
 

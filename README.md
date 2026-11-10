@@ -95,13 +95,12 @@ npx playwright install chromium
 
 ## Legal pages
 
-`src/content/legal/impressum.md` and `datenschutz.md` become `/impressum` and `/datenschutz`. A page is built, linked in the contact window, and added to the sitemap only when its `draft` is `false`. If a published page still contains a `[[PLACEHOLDER]]`, the build fails with the file name and the placeholders left, so placeholder text can't go live.
+Each file in `src/content/legal/`, for example `datenschutz.md`, becomes a page at its file name, for example `/datenschutz`. A page is built, linked in the contact window, and added to the sitemap only when its `draft` is `false`. If a published page still contains a `[[PLACEHOLDER]]`, the build fails with the file name and the placeholders left, so placeholder text can't go live.
 
 ## Before going live
 
 - In `site.yaml`, set `draftNote: ""`.
 - Add `public/cv.pdf` and set `cv: /cv.pdf`. Until the file exists, keep `cv` empty, or fail2ban counts the 404s.
-- Add Impressum and Datenschutz pages and set their paths under `legal`.
 - Make sure `security@snowy-burbot.com` reaches a mailbox you read (Cloudflare Email Routing).
 
 ## Docker image
@@ -137,6 +136,25 @@ docker compose pull && docker compose up -d
 ```
 
 To roll back, set `image:` to an older `sha-...` tag and run `docker compose up -d`.
+
+## Threat feed
+
+The threats window shows what scanners did to the site in the last 24 hours: request and probe counts, bans, probe types, hosts by country, and the most probed paths. It never shows IP addresses.
+
+The data comes from `scripts/vps/homepage-feed.sh`, which runs on the VPS. It reads the Caddy access log and the fail2ban log, aggregates them with `jq`, and writes `/opt/homepage/feed/threats.json`. The container mounts that folder read-only at `/feed/`, and nginx serves it with a 60-second cache. The window loads the file in the browser, so the feed updates without a rebuild. If the file is missing, the window shows `-- feed offline --`.
+
+Install it on the VPS:
+
+```bash
+install -m 755 scripts/vps/homepage-feed.sh /usr/local/bin/homepage-feed.sh
+mkdir -p /opt/homepage/feed
+/usr/local/bin/homepage-feed.sh && jq . /opt/homepage/feed/threats.json
+echo '*/10 * * * * root /usr/local/bin/homepage-feed.sh' > /etc/cron.d/homepage-feed
+```
+
+Then add the `volumes:` entry from `compose.example.yml` to the compose file and run `docker compose up -d`.
+
+The script needs `jq` and `fail2ban-client`, and it expects the log paths at the top of the file. Probed paths come from attackers, so the window sets every value with `textContent` and the script strips non-printable characters and cuts paths at 48 characters.
 
 ## Security headers
 

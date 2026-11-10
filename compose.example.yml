@@ -9,6 +9,9 @@ services:
     read_only: true
     tmpfs:
       - /tmp
+    volumes:
+      # Threat feed JSON written by scripts/vps/homepage-feed.sh (cron).
+      - ./feed:/usr/share/nginx/html/feed:ro
     cap_drop: [ALL]
     security_opt:
       - no-new-privileges:true

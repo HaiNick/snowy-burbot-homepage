@@ -1,0 +1,109 @@
+---
+import Window from "../Window.astro";
+---
+<Window id="w-threats" app="kitty" title="~/lab journalctl -u fail2ban --since -24h">
+  <p class="prompt"><span class="u">sharky@snowy-burbot</span> ~ <span class="c">threat-summary --since 24h</span></p>
+  <div class="tf" data-feed="/feed/threats.json">
+    <p class="tf-status empty" data-tf="status">-- loading feed --</p>
+    <dl class="tf-stats" data-tf="stats" hidden>
+      <div><dt>requests</dt><dd data-tf="requests">0</dd></div>
+      <div><dt>probes</dt><dd data-tf="probes">0</dd></div>
+      <div><dt>bans</dt><dd data-tf="bans">0</dd></div>
+      <div><dt>banned now</dt><dd data-tf="active">0</dd></div>
+    </dl>
+    <div class="tf-grid" data-tf="lists" hidden>
+      <section>
+        <h3>by type</h3>
+        <ul class="tf-bars" data-tf="categories"></ul>
+      </section>
+      <section>
+        <h3>hosts by country</h3>
+        <ul class="tf-bars" data-tf="countries"></ul>
+      </section>
+      <section class="tf-wide">
+        <h3>top probed paths</h3>
+        <ul class="tf-paths" data-tf="paths"></ul>
+      </section>
+    </div>
+    <p class="note" data-tf="foot" hidden></p>
+  </div>
+</Window>
+
+<script>
+  type Row = { name?: string; code?: string; path?: string; count: number };
+  type Feed = {
+    generated: string; hours: number; requests: number; probes: number;
+    bans: number; active: number; categories: Row[]; countries: Row[]; paths: Row[];
+  };
+
+  const root = document.querySelector<HTMLElement>(".tf");
+  const $ = (key: string) => root?.querySelector<HTMLElement>(`[data-tf="${key}"]`) ?? null;
+
+  // Every value from the feed is set with textContent, never as HTML:
+  // the paths come straight from attackers' requests.
+  function bars(list: HTMLElement | null, rows: Row[], label: (r: Row) => string) {
+    if (!list) return;
+    list.replaceChildren();
+    const max = Math.max(1, ...rows.map((r) => r.count));
+    for (const r of rows) {
+      const li = document.createElement("li");
+      const name = document.createElement("span");
+      name.className = "tf-name";
+      name.textContent = label(r);
+      const bar = document.createElement("span");
+      bar.className = "tf-bar";
+      bar.setAttribute("aria-hidden", "true");
+      bar.textContent = "█".repeat(Math.max(1, Math.round((r.count / max) * 12)));
+      const n = document.createElement("span");
+      n.className = "tf-n";
+      n.textContent = String(r.count);
+      li.append(name, bar, n);
+      list.append(li);
+    }
+  }
+
+  function paths(list: HTMLElement | null, rows: Row[]) {
+    if (!list) return;
+    list.replaceChildren();
+    for (const r of rows) {
+      const li = document.createElement("li");
+      const n = document.createElement("span");
+      n.className = "tf-n";
+      n.textContent = String(r.count);
+      const p = document.createElement("code");
+      p.textContent = r.path ?? "";
+      li.append(n, p);
+      list.append(li);
+    }
+  }
+
+  async function load() {
+    if (!root) return;
+    const status = $("status");
+    try {
+      const res = await fetch(root.dataset.feed ?? "", { cache: "no-store" });
+      if (!res.ok) throw new Error(String(res.status));
+      const f = (await res.json()) as Feed;
+      for (const k of ["requests", "probes", "bans", "active"] as const) {
+        const el = $(k);
+        if (el) el.textContent = String(f[k] ?? 0);
+      }
+      bars($("categories"), f.categories ?? [], (r) => r.name ?? "");
+      bars($("countries"), f.countries ?? [], (r) => r.code ?? "??");
+      paths($("paths"), f.paths ?? []);
+      const when = new Date(f.generated);
+      const foot = $("foot");
+      if (foot) {
+        foot.textContent = `Updated ${when.toLocaleString("de-DE", { timeZone: "Europe/Berlin", dateStyle: "short", timeStyle: "short" })}. Counts only, no IP addresses. Bans happen at Cloudflare, so banned hosts stop showing up here.`;
+        foot.hidden = false;
+      }
+      $("stats")?.removeAttribute("hidden");
+      $("lists")?.removeAttribute("hidden");
+      if (status) status.hidden = true;
+    } catch {
+      if (status) status.textContent = "-- feed offline --";
+    }
+  }
+
+  load();
+</script>
